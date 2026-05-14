@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #03070c;
+  --color-surface: #070d18;
+  --color-surface2: #0c1527;
+  --color-accent: #00d4ff;
+  --color-accent2: #9d8bff;
+  --color-accent3: #00ffaa;
+  --color-warn: #ff4d4d;
+  --color-text: #e1e7f0;
+  --color-text-muted: #5e7087;
+  --color-border: rgba(0, 212, 255, 0.12);
+
+  --font-display: "Orbitron", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-bg text-text antialiased font-mono overflow-x-hidden;
+    background-image: 
+      radial-gradient(circle at 0% 0%, rgba(0, 212, 255, 0.03) 0%, transparent 40%),
+      radial-gradient(circle at 100% 100%, rgba(157, 139, 255, 0.03) 0%, transparent 40%),
+      linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-size: 100% 100%, 100% 100%, 50px 50px, 50px 50px, 150px 150px;
+    background-blend-mode: normal, normal, normal, normal, overlay;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-[0.25em] uppercase text-white;
+  }
+}
+
+.scan-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, transparent, var(--color-accent), transparent);
+  animation: scan 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  z-index: 100;
+  opacity: 0.15;
+  pointer-events: none;
+  filter: blur(2px);
+}
+
+@keyframes scan {
+  from { transform: translateY(-10vh); }
+  to { transform: translateY(110vh); }
+}
+
+.glow-text {
+  text-shadow: 0 0 15px rgba(0, 212, 255, 0.4), 0 0 30px rgba(0, 212, 255, 0.1);
+}
+
+.glass-panel {
+  @apply bg-surface/80 border border-border backdrop-blur-xl rounded-none p-6 relative transition-all duration-500 overflow-hidden;
+  box-shadow: 
+    0 4px 30px rgba(0, 0, 0, 0.7),
+    inset 0 0 20px rgba(0, 212, 255, 0.02);
+}
+
+.glass-panel::before {
+  content: '';
+  @apply absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent;
+}
+
+.glass-panel:hover {
+  @apply border-accent/30 bg-surface2/90;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.8),
+    inset 0 0 30px rgba(0, 212, 255, 0.05);
+}
+
+.btn-cyber {
+  @apply relative px-8 py-3 bg-bg border border-accent text-accent font-display text-[10px] tracking-[0.3em] uppercase overflow-hidden transition-all duration-300;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.1);
+}
+
+.btn-cyber::before {
+  content: '';
+  @apply absolute inset-0 bg-accent -translate-x-full transition-transform duration-500 ease-out;
+  z-index: -1;
+}
+
+.btn-cyber:hover {
+  @apply text-bg border-accent shadow-[0_0_20px_rgba(0,212,255,0.3)];
+}
+
+.btn-cyber:hover::before {
+  @apply translate-x-0;
+}
+
+.btn-cyber:active {
+  @apply scale-95 brightness-110;
+}
+
+.btn-cyber:disabled {
+  @apply opacity-30 cursor-not-allowed grayscale border-border text-text-muted;
+}
+
+.input-cyber {
+  @apply w-full bg-surface2/50 border border-border px-4 py-4 text-text font-mono text-[11px] focus:outline-none focus:border-accent/60 focus:bg-surface2 focus:ring-1 focus:ring-accent/20 transition-all duration-300 placeholder:text-text-muted/40;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 2px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 0;
+}
+
+.cyber-corner-tr {
+  @apply absolute top-0 right-0 w-2 h-2 border-t border-r border-accent opacity-60;
+}
+.cyber-corner-bl {
+  @apply absolute bottom-0 left-0 w-2 h-2 border-b border-l border-accent opacity-60;
+}
+
+@keyframes pulse-accent {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+.animate-pulse-accent {
+  animation: pulse-accent 3s ease-in-out infinite;
+}
+

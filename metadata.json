@@ -1,0 +1,14 @@
+{
+  "name": "Interview Readiness Analyzer",
+  "description": "A futuristic AI-powered platform for students to simulate mock interviews, analyze resumes, and assess placement readiness with personalized AI feedback.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "AI Interview Simulation",
+    "Resume ATS Analysis",
+    "Skill Assessment",
+    "Personalized Feedback"
+  ]
+}
